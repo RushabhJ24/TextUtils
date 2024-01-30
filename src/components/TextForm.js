@@ -19,6 +19,15 @@ export default function TextForm(props) {
         setText(event.target.value)
     }
 
+    const handleCopy = () =>{
+        navigator.clipboard.writeText(text);
+    }
+
+    const handleExtraSpaces = () =>{
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+    }
+
     const [text, setText] = useState('');
     return (
         <>
@@ -27,14 +36,16 @@ export default function TextForm(props) {
                 <div className="my-3">
                     <textarea className="form-control" value={text} style={{backgroundColor:props.mode==='dark'?'grey':'white', color:props.mode==='dark'?'white':'black'}} onChange={handleOnChange} aria-label="With textarea" rows='5'></textarea>
                 </div>
-                <div className='btn btn-primary' onClick={handleUpClick}>Convert to UPPERCASE</div>
-                <div className='btn btn-primary mx-3' onClick={handleLoClick}>Convert to lowercase</div>
-                <div className='btn btn-primary' onClick={handleClearClick}>Clear Text</div>
+                <button disabled={text.length===0} className='btn btn-primary my-1 mx-1' onClick={handleUpClick}>Convert to UPPERCASE</button>
+                <button disabled={text.length===0} className='btn btn-primary mx-1 my-1' onClick={handleLoClick}>Convert to lowercase</button>
+                <button disabled={text.length===0} className='btn btn-primary my-1 mx-1' onClick={handleClearClick}>Clear Text</button>
+                <button disabled={text.length===0} className='btn btn-primary my-1 mx-1' onClick={handleCopy}>Copy Text</button>
+                <button disabled={text.length===0} className='btn btn-primary my-1 mx-1' onClick={handleExtraSpaces}>Remove Extra Spaces</button>
             </div>
             <div className="container my-3" style={{color:props.mode==='dark'?'white':'black'}}>
                 <h1>Your Text Summary</h1>
-                <p><b>{text.split(" ").length}</b> words and <b>{text.length}</b> characters</p>
-                <p><b>{0.008*text.split(" ").length}</b> Minutes read</p>
+                <p><b>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length}</b> words and <b>{text.length}</b> characters</p>
+                <p><b>{0.008*text.split(/\s+/).filter((element)=>{return element.length!==0}).length}</b> Minutes read</p>
                 <h2>Preview</h2>
                 <p>{text}</p>
             </div>
