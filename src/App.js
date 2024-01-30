@@ -2,17 +2,24 @@
 import './App.css';
 import Navbar from './Components/Navbar'
 import TextForm from './Components/TextForm'
-import React, {useState} from 'react'
+import About from './Components/About';
+import React, { useState } from 'react'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 function App() {
-  const [mode, setMode] = useState('light'); 
+  const [mode, setMode] = useState('light');
 
-  const toggleMode = ()=>{
-    if(mode==='light' ){
+  const toggleMode = () => {
+    if (mode === 'light') {
       setMode("dark")
       document.body.style.backgroundColor = "#042743";
     }
-    else{
+    else {
       setMode("light")
       document.body.style.backgroundColor = "white";
     }
@@ -20,10 +27,19 @@ function App() {
 
   return (
     <>
-      <Navbar title='TextUtils' mode={mode} toggleMode={toggleMode} />
-      <div className="container">
-         <TextForm heading='Enter the Text :' mode={mode}/>
-         </div>
+      <Router>
+        <Navbar title='TextUtils' mode={mode} toggleMode={toggleMode} />
+        <div className="container">
+          <Switch>
+            <Route exact path="/about">
+              <About mode={mode} />
+            </Route>
+            <Route exact path="/" >
+              <TextForm heading='Enter the Text :' mode={mode} />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </>
   );
 }
