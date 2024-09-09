@@ -45,6 +45,6 @@ Contributions are welcome! If you have any ideas for new features or improvement
 5. Submit a pull request.
 
 ## Contact
-Author: Rushabh Jain
-GitHub: @RushabhJ24
-Email: rushabhsjain40@gmail.com
+- **Author**: Rushabh Jain
+- **GitHub**: @RushabhJ24
+- **Email**: rushabhsjain40@gmail.com
